@@ -1,9 +1,9 @@
 import {model, Schema} from 'mongoose'
 const userSchema = new Schema( { 
-    uid:{
-        type: String,
-        required: true,
-    },
+    // uid:{
+    //     type: String,
+    //     required: true,
+    // },
     password:{
         type: String,
         select: false

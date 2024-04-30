@@ -1,4 +1,4 @@
-import Blog from '../../models/blog'; 
+import Blog from '../models/blog.js'; 
 const blogController = {
     addBlog: async (req, res) => {
         try {
