@@ -20,6 +20,9 @@ export default function MultiActionAreaCard({ title, content, author, image }) {
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
+          <Typography variant="h7" component="div">
+            {author}
+          </Typography>
           <Typography variant="body2" color="text.secondary">
             {content}
           </Typography>

@@ -2,8 +2,8 @@ import Blog from '../models/blog.js';
 const blogController = {
     addBlog: async (req, res) => {
         try {
-            const { title, content, author, category, tags } = req.body;
-            const newBlog = new Blog({ title, content, author, category, tags });
+            const { title, content, author, category, tags, image } = req.body;
+            const newBlog = new Blog({ title, content, author, category, tags, image });
             await newBlog.save();
             res.status(201).json(newBlog);
         } catch (error) {

@@ -3,6 +3,7 @@ import axios from 'axios';
 import ButtonAppBar from './AppBar'
 import BlogCard from './BlogCard.js'
 import './home.css'
+import BlogDrawer from './CreateBlogDrawer.js';
 import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [blogData, setBlogData] = useState([]);
@@ -25,7 +26,8 @@ const Home = () => {
   return (
     <div>
       <ButtonAppBar/>
-     
+      <BlogDrawer/>
+     <div style={{display:'flex', justifyContent: 'center'}}>
        <div className='blogs'>
         {Array.isArray(blogData) ? ( blogData.map(blog => (
          <BlogCard
@@ -41,7 +43,7 @@ const Home = () => {
       ) : (
         <p>No blog data available</p>
       )}
-     </div> </div>
+     </div></div> </div>
   )
 }
 
