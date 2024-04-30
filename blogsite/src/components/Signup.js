@@ -35,7 +35,7 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    await axios.post('http://localhost:5000/user/registerUser', {
+    await axios.post('http://localhost:5000/user/login', {
         fullName: data.get('fullname'),
         password: data.get('password')
       })

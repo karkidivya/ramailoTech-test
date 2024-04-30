@@ -26,7 +26,11 @@ const blogSchema = new Schema({
         [{
         userName: String , 
         comment : String 
-    }]
+    }],
+    image :{
+        type: String,
+        required : true
+    }
     
 
 })
