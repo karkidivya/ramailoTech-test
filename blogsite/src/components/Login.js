@@ -31,11 +31,15 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    await axios.post('http://localhost:5000/user/registerUser', {
+        fullName: data.get('fullname'),
+        password: data.get('password')
+      })
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
+      fullname: data.get('fullname'),
       password: data.get('password'),
     });
   };
@@ -63,10 +67,10 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="fullname"
+              label="fullname"
+              name="fullname"
+              autoComplete="fullname"
               autoFocus
             />
             <TextField
@@ -98,7 +102,7 @@ export default function Login() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

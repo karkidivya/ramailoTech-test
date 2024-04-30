@@ -75,7 +75,7 @@ const userController = {
 
     login: async( req, res ) =>{
         try{            
-            const user = await User.findOne( {email: req.body.email} ).select('+password').lean()
+            const user = await User.findOne( {fullName: req.body.fullName} ).select('+password').lean()
             // console.log( 'User object', user );
             if( !user ) return res.status( 401 ).json( {status: 'unsuccessful', task: 'login', reason: 'Invalid Credentials'} )
             
@@ -86,8 +86,8 @@ const userController = {
             //generate the access Token for the corresponding user
             const { _id, uid, email,  fullName, cart, wishList } = user
             
-            const token = await createCustomToken( { _id, uid, email,  fullName } , SECRET );
-            res.status( 200 ).json( { status: 'successful', task: 'login', payload: {...user , cart, wishList, token } })
+            const token = await createCustomToken( { _id, fullName } , SECRET );
+            res.status( 200 ).json( { status: 'successful', task: 'login', payload: {...user , token } })
 
         }catch( error ) {
             console.log('An error occurred', error)
