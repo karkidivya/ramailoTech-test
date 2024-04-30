@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+
 import { Autocomplete, Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
 export default function BlogDrawer() {
   const [open, setOpen] = useState(false);
-  const [age, setAge] = useState('');
+  const [category, setCategory] = useState('');
+  const [selectedTags, setSelectedTags] = React.useState([]);
+
+  const handleTagChange = (event, newValue) => {
+    setSelectedTags(newValue);
+  };
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -23,18 +22,35 @@ export default function BlogDrawer() {
  
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setCategory(event.target.value);
   };
 
-  const handleSubmit = () => {
-      
+  const handleSubmit = async(event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    await axios.post('http://localhost:5000/blog/addblog', {
+      title: data.get('title'),
+      author: data.get('author'),
+      image: data.get('image'),
+      content: data.get('content'),
+      category: category,
+      tags : selectedTags
+      })
+      console.log({
+        title: data.get('title'),
+        author: data.get('author'),
+        image: data.get('image'),
+        content: data.get('content'),
+        category: category,
+        tags : selectedTags
+      });
   }
   // const handleClose = (event) => {
   //   event.preventDefault();
   //   toggleDrawer(false)
     
   // }
-  const tags = [ 'sintific' , 'bestofbest', 'educational', 'innovation', 'enterpreneurship', 'regular', 'english', 'nepali', 'hindi']
+  const tags = [ 'scientific' , 'bestofbest', 'educational', 'innovation', 'enterpreneurship', 'regular', 'english', 'nepali', 'hindi']
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" >
       <CloseIcon onClick = {toggleDrawer(false)} />
@@ -68,31 +84,36 @@ export default function BlogDrawer() {
           label="content"
           multiline
           rows={4}
+          name = "content"
           defaultValue="Describe your blog"
         />
          <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-label">category</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
-          label="Age"
+          value={category}
+          label="category"
           onChange={handleChange}
         >
-          <MenuItem value={10}>educational</MenuItem>
-          <MenuItem value={20}>startup</MenuItem>
-          <MenuItem value={30}>lifestyle</MenuItem>
+          <MenuItem value={1}>educational</MenuItem>
+          <MenuItem value={2}>startup</MenuItem>
+          <MenuItem value={3}>lifestyle</MenuItem>
+          <MenuItem value={4}>Cooking</MenuItem>
+          <MenuItem value={5}>Travel</MenuItem>
         </Select>
       </FormControl>
+
       <Autocomplete
       multiple
       limitTags={2}
       id="multiple-limit-tags"
       options={tags}
-      getOptionLabel={(option) => option.title}
-      // defaultValue={}
+      onChange={handleTagChange}
+      getOptionLabel={(tags) => tags}
+      // defaultValue={tags[1]}
       renderInput={(params) => (
-        <TextField {...params} label="limitTags" placeholder="Favorites" />
+        <TextField {...params} label="Tags" placeholder="Favorites" />
       )}
       sx={{ width: '500px' }}
     />
