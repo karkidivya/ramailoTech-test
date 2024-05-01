@@ -1,2 +1,47 @@
-This is a test.
+start blogsite (react code)
+# npm run start
 
+start backend 
+# node index.js 
+or
+# nodemon index.js
+
+This a blogging websitlogsite" where user can read blogs, authenticate users can create, read , delete and update the blogs.
+Due to the certain time constraints, I am able to complete the following task requirements,
+and I will complete this project remaining part as my personal growth as well. 
+
+
+Database : mongodb
+
+Backend:
+-node(express.js)
+Implemented a RESTful API for CRUD operations on blog posts, categories, and tags.
+Blog post have fields like title, content, author, creation date, category, and tags.
+1 category has many blogs and 1 blog has many tags and vice versa.
+Implement user authentication and authorization using JSON Web Tokens (JWT) or a similar approach.
+Implement a commenting system for blog posts, where authenticated users can leave comments.
+
+
+Frontend:
+Use React to build the user interface.
+Implemented the following components/pages:
+Home page: Display a list of recent blog posts with pagination or infinite scrolling.
+
+Post detail page: Display the full content of a blog post, along with comments. # (remaining)
+
+Create/update post page: Allow authenticated users to create or update blog posts, with options to select categories and tags. # (authenticate users can create)
+
+Category listing page: Display a list of categories with the ability to filter blog posts by category.
+
+Tag listing page: Display a list of tags with the ability to filter blog posts by tag.
+# ( I have included tag and category filter in home page )
+
+User authentication pages: Login, registration, and password reset pages.  (password reset remaining)
+
+Implement client-side form validation for input fields. (remaining)
+
+Consume the backend API to perform CRUD operations on blog posts, categories, and tags.
+
+
+
+Github link : https://github.com/karkidivya/ramailoTech-test.git
