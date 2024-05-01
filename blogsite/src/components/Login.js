@@ -34,11 +34,12 @@ const defaultTheme = createTheme();
 export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await axios.post('http://localhost:5000/user/registerUser', {
+    const data = new FormData(event.currentTarget);
+    await axios.post('http://localhost:5000/user/login', {
         fullName: data.get('fullname'),
         password: data.get('password')
       })
-    const data = new FormData(event.currentTarget);
+    
     console.log({
       fullname: data.get('fullname'),
       password: data.get('password'),

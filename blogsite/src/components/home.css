@@ -4,3 +4,10 @@
     align-items: center;
     flex-wrap: wrap;
 }
+
+.filters{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row;
+}
