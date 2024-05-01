@@ -6,13 +6,14 @@ import './home.css'
 import BlogDrawer from './CreateBlogDrawer.js';
 import { useNavigate } from "react-router-dom";
 import { Autocomplete, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { useAuth } from '../context/AuthContext';
 const Home = () => {
   const [category, setCategory] = useState('');
   const [selectedTags, setSelectedTags] = React.useState([]);
   const [filteredBlogData, setFilteredBlogData] = useState([]);
   const [blogData, setBlogData] = useState([]);
   const tags = [ 'scientific' , 'bestofbest', 'educational', 'innovation', 'enterpreneurship', 'regular', 'english', 'nepali', 'hindi']
-
+  const { isAuthenticated } = useAuth();
   useEffect(() => {
     fetchBlogData();
   }, [category, selectedTags]);
@@ -20,6 +21,8 @@ const Home = () => {
   const navigate = useNavigate()
 
   const fetchBlogData = async () => {
+
+    
     try {
       const response = await axios.get('http://localhost:5000/blog/getBlogs')
       setBlogData(response.data);
@@ -54,13 +57,17 @@ const Home = () => {
   };
   
   console.log(blogData)
+
+    const handleClick = () => {
+        navigate("/")
+    }
   return (
     <div>
       <ButtonAppBar/>
       <div className='filters'>
         <BlogDrawer/>
-      <FormControl  sx={{ width: '500px' }}
-    >
+        <FormControl  sx={{ width: '500px' }}
+              >
         <InputLabel id="demo-simple-select-label">category</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -75,21 +82,21 @@ const Home = () => {
           <MenuItem value={4}>Cooking</MenuItem>
           <MenuItem value={5}>Travel</MenuItem>
         </Select>
-      </FormControl>
+        </FormControl>
 
-      <Autocomplete
-      multiple
-      limitTags={2}
-      id="multiple-limit-tags"
-      options={tags}
-      onChange={handleTagChange}
-      getOptionLabel={(tags) => tags}
-      // defaultValue={tags[1]}
-      renderInput={(params) => (
-        <TextField {...params} label="Tags" placeholder="Favorites" />
-      )}
-      sx={{ width: '500px' }}
-    />
+        <Autocomplete
+        multiple
+        limitTags={2}
+        id="multiple-limit-tags"
+        options={tags}
+        onChange={handleTagChange}
+        getOptionLabel={(tags) => tags}
+        // defaultValue={tags[1]}
+        renderInput={(params) => (
+          <TextField {...params} label="Tags" placeholder="Favorites" />
+        )}
+        sx={{ width: '500px' }}
+        />
       </div>
       
      <div style={{display:'flex', justifyContent: 'center'}}>
@@ -101,6 +108,7 @@ const Home = () => {
            content={blog.content}
            author={blog.author}
            image={blog.image}
+           onClick = {handleClick}
           //  category={blog.category}
           //  tags={blog.tags}
          />

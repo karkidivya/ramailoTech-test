@@ -13,13 +13,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from "react-router-dom";
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        BlogSite
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -32,19 +33,31 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
+  const navigate = useNavigate()
+  const { login, isAuthenticated } = useAuth();
+  const [token, setToken] = React.useState('');
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    await axios.post('http://localhost:5000/user/login', {
+    const response = await axios.post('http://localhost:5000/user/login', {
         fullName: data.get('fullname'),
         password: data.get('password')
       })
-    
+    // setToken(response.data.payload)
+    login(response.data.payload);
     console.log({
+      response,
       fullname: data.get('fullname'),
       password: data.get('password'),
     });
   };
+  React.useEffect(()=>{
+    console.log(isAuthenticated(),"auth")
+    if(isAuthenticated()){
+      navigate("/")
+    }
+  },[isAuthenticated])
 
   return (
     <ThemeProvider theme={defaultTheme}>

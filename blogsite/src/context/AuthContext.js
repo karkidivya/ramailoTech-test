@@ -9,9 +9,12 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
+  const [name, setName] = useState(null);
 
-  const login = (token) => {
-    setToken(token);
+  const login = (data) => {
+    console.log("cjsdcj",data.token,"authcontext")
+    setToken(data.token);
+    setName(data.fullName)
     // You can also store the token in localStorage or sessionStorage for persistence
   };
 
@@ -21,11 +24,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   const isAuthenticated = () => {
-    return !!token;
+
+    return (!!token);
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, isAuthenticated }}>
+    <AuthContext.Provider value={{ token,name, login, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

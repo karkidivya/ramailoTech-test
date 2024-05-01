@@ -13,13 +13,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from "react-router-dom";
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Blogsite
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -32,10 +33,12 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
+  const navigate = useNavigate()
+  const { login , isAuthenticated} = useAuth();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    await axios.post('http://localhost:5000/user/registerUser', {
+    const response = await axios.post('http://localhost:5000/user/registerUser', {
         fullName: data.get('fullname'),
         password: data.get('password')
       })
@@ -45,11 +48,25 @@ export default function Login() {
     //   .catch(function (error) {
     //     console.log(error);
     //   });
+
+    login(response.data.payload);
+    console.log(response,"here1")
     console.log({
       fullname: data.get('fullname'),
       password: data.get('password'),
     });
+
+    
+
+
   };
+
+  React.useEffect(()=>{
+    console.log(isAuthenticated(),"auth")
+    if(isAuthenticated()){
+      navigate("/")
+    }
+  },[isAuthenticated])
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -67,7 +84,7 @@ export default function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign up
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -110,7 +127,7 @@ export default function Login() {
               </Grid>
               <Grid item>
                 <Link href="/login" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"Already have an account? Sign In"}
                 </Link>
               </Grid>
             </Grid>
