@@ -16,7 +16,7 @@ const Home = () => {
   const { isAuthenticated } = useAuth();
   useEffect(() => {
     fetchBlogData();
-  }, [category, selectedTags]);
+  }, []);
 
   const navigate = useNavigate()
 
@@ -58,9 +58,11 @@ const Home = () => {
   
   console.log(blogData)
 
-    const handleClick = () => {
-        navigate("/")
-    }
+  const handleClick = (  id) => {
+    // event.preventDefault();
+    console.log("clicked")
+    navigate(`/blog/${id}`)
+  }
   return (
     <div>
       <ButtonAppBar/>
@@ -102,16 +104,18 @@ const Home = () => {
      <div style={{display:'flex', justifyContent: 'center'}}>
        <div className='blogs'>
         {Array.isArray(blogData) ? ( blogData.map(blog => (
-         <BlogCard
+         <div  onClick={() => handleClick(blog._id)}>
+          <BlogCard
            key={blog._id} 
            title={blog.title}
            content={blog.content}
            author={blog.author}
            image={blog.image}
-           onClick = {handleClick}
+          //  onClick={() => navigate("/blog")}
+         
           //  category={blog.category}
           //  tags={blog.tags}
-         />
+         /></div>
        ))
       ) : (
         <p>No blog data available</p>

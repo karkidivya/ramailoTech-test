@@ -27,7 +27,7 @@ Use React to build the user interface.
 Implemented the following components/pages:
 Home page: Display a list of recent blog posts with pagination or infinite scrolling.
 
-Post detail page: Display the full content of a blog post, along with comments. # (remaining)
+Post detail page: Display the full content of a blog post, along with comments. # (comments remaining)
 
 Create/update post page: Allow authenticated users to create or update blog posts, with options to select categories and tags. # (authenticate users can create)
 

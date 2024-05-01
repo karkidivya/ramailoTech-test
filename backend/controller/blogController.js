@@ -69,6 +69,21 @@ const blogController = {
             res.status(500).json({ message: 'Server Error' });
         }
     },
+    getBlogById: async (req, res) => {
+        const  Id  = req.params.id;
+        try {
+            
+            console.log(Id, "jncjnsk")
+            const blog = await Blog.findById(Id);
+            if (!blog) {
+                return res.status(404).json({ message: 'Blog not found' });
+            }
+            res.json(blog);
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+            res.status(500).json({ message: 'Server Error' });
+        }
+    },
 
     addComments: async (req, res) => {
         try {

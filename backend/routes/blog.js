@@ -10,6 +10,7 @@ blogRouter.get('/getBlogs', blogController.getAllBlogs );
 blogRouter.get('/getBlogsByCategory', blogController.getAllBlogsByCategory );
 blogRouter.delete('/delete', blogController.deleteBlog );
 blogRouter.get('/blogcomments',verificationMiddleware, blogController.getCommentsByBlogId  );
+blogRouter.get('/getBlog/:id', blogController.getBlogById  );
 blogRouter.get('/addcomments',verificationMiddleware, blogController.addComments  );
 
 export default blogRouter
