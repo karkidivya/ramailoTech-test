@@ -64,7 +64,7 @@ const Home = () => {
   return (
     <div>
       <ButtonAppBar/>
-      <div className='filters'>
+      { isAuthenticated() && (<div className='filters'>
         <BlogDrawer/>
         <FormControl  sx={{ width: '500px' }}
               >
@@ -97,7 +97,7 @@ const Home = () => {
         )}
         sx={{ width: '500px' }}
         />
-      </div>
+      </div>)}
       
      <div style={{display:'flex', justifyContent: 'center'}}>
        <div className='blogs'>
